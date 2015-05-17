@@ -1,0 +1,62 @@
+﻿<Page x:Class="Circuitboard7.RgbLed.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:Circuitboard7.RgbLed"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+		  Margin="15,15,15,15">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*" />
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="1*" />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Grid.Column="1"
+					Orientation="Vertical">
+			<!-- Red -->
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Red"
+						   Style="{ThemeResource HeaderTextBlockStyle}"
+						   Margin="0,0,25,0" />
+				<TextBlock Text="{Binding ElementName=redSlider, Path=Value}"
+						   Style="{ThemeResource HeaderTextBlockStyle}" />
+			</StackPanel>
+			<Slider x:Name="redSlider"
+					Value="100"
+					Minimum="0"
+					Maximum="255"
+					ValueChanged="RedSlider_ValueChanged" />
+
+			<!-- Green -->
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Green"
+						   Style="{ThemeResource HeaderTextBlockStyle}"
+						   Margin="0,0,25,0" />
+				<TextBlock Text="{Binding ElementName=greenSlider, Path=Value}"
+						   Style="{ThemeResource HeaderTextBlockStyle}" />
+			</StackPanel>
+			<Slider x:Name="greenSlider"
+					Value="100"
+					Minimum="0"
+					Maximum="255"
+					ValueChanged="GreenSlider_ValueChanged" />
+
+			<!-- Blue -->
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Blue"
+						   Style="{ThemeResource HeaderTextBlockStyle}"
+						   Margin="0,0,25,0" />
+				<TextBlock Text="{Binding ElementName=blueSlider, Path=Value}"
+						   Style="{ThemeResource HeaderTextBlockStyle}" />
+			</StackPanel>
+			<Slider x:Name="blueSlider"
+					Value="100"
+					Minimum="0"
+					Maximum="255"
+					ValueChanged="BlueSlider_ValueChanged" />
+		</StackPanel>
+	</Grid>
+</Page>
