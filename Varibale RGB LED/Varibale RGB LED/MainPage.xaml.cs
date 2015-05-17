@@ -18,13 +18,13 @@ namespace Circuitboard7.RgbLed
 
 			public static class Default
 			{
-				public const int LedValue = 50;
+				public const int LedValue = 75;
 			}
 		}
 
-		private SoftPwm RedPin { get; set; }
-		private SoftPwm GreenPin { get; set; }
-		private SoftPwm BluePin { get; set; }
+		private SoftPwm RedPwm { get; set; }
+		private SoftPwm GreenPwm { get; set; }
+		private SoftPwm BluePwm { get; set; }
 
 		public MainPage()
 		{
@@ -41,18 +41,18 @@ namespace Circuitboard7.RgbLed
 			var gpio = GpioController.GetDefault();
 
 			// ***
-			// *** Setup the three pins
+			// *** Setup the three pins on a Soft PWM
 			// ***
-			this.RedPin = gpio.OpenPin(Constants.Pin.RedLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(Constants.Default.LedValue);
-			this.GreenPin = gpio.OpenPin(Constants.Pin.GreenLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(Constants.Default.LedValue);
-			this.BluePin = gpio.OpenPin(Constants.Pin.BlueLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(Constants.Default.LedValue);
+			this.RedPwm = gpio.OpenPin(Constants.Pin.RedLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(initialValue: Constants.Default.LedValue, pulseWidth: 25d);
+			this.GreenPwm = gpio.OpenPin(Constants.Pin.GreenLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(initialValue: Constants.Default.LedValue, pulseWidth: 25d);
+			this.BluePwm = gpio.OpenPin(Constants.Pin.BlueLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(initialValue: Constants.Default.LedValue, pulseWidth: 25d);
 
 			// ***
 			// *** Initialize the sliders
 			// ***
-			this.InitializeSliderControl(redSlider, this.RedPin);
-			this.InitializeSliderControl(greenSlider, this.GreenPin);
-			this.InitializeSliderControl(blueSlider, this.BluePin);
+			this.InitializeSliderControl(redSlider, this.RedPwm);
+			this.InitializeSliderControl(greenSlider, this.GreenPwm);
+			this.InitializeSliderControl(blueSlider, this.BluePwm);
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -60,34 +60,34 @@ namespace Circuitboard7.RgbLed
 			// ***
 			// *** Stop and Dispose the SoftPwm instances
 			// ***
-			if (this.RedPin != null) { this.RedPin.Dispose(); }
-			if (this.GreenPin != null) { this.GreenPin.Dispose(); }
-			if (this.BluePin != null) { this.BluePin.Dispose(); }
+			if (this.RedPwm != null) { this.RedPwm.Dispose(); }
+			if (this.GreenPwm != null) { this.GreenPwm.Dispose(); }
+			if (this.BluePwm != null) { this.BluePwm.Dispose(); }
 
 			base.OnNavigatedFrom(e);
 		}
 
 		private void RedSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
-			if (this.RedPin != null)
+			if (this.RedPwm != null)
 			{
-				this.RedPin.Value = (int)e.NewValue;
+				this.RedPwm.Value = (int)e.NewValue;
 			}
 		}
 
 		private void GreenSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
-			if (this.GreenPin != null)
+			if (this.GreenPwm != null)
 			{
-				this.GreenPin.Value = (int)e.NewValue;
+				this.GreenPwm.Value = (int)e.NewValue;
 			}
 		}
 
 		private void BlueSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
-			if (this.BluePin != null)
+			if (this.BluePwm != null)
 			{
-				this.BluePin.Value = (int)e.NewValue;
+				this.BluePwm.Value = (int)e.NewValue;
 			}
 		}
 

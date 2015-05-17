@@ -6,57 +6,65 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  mc:Ignorable="d">
 
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-		  Margin="15,15,15,15">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1*" />
-			<ColumnDefinition Width="2*" />
-			<ColumnDefinition Width="1*" />
-		</Grid.ColumnDefinitions>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<StackPanel Orientation="Vertical">
+			<!-- Title -->
+			<TextBlock Text="{StaticResource AppName}"
+					   Margin="25,25,25,25"
+					   Style="{ThemeResource HeaderTextBlockStyle}" />
 
-		<StackPanel Grid.Column="1"
-					Orientation="Vertical">
-			<!-- Red -->
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Red"
-						   Style="{ThemeResource HeaderTextBlockStyle}"
-						   Margin="0,0,25,0" />
-				<TextBlock Text="{Binding ElementName=redSlider, Path=Value}"
-						   Style="{ThemeResource HeaderTextBlockStyle}" />
-			</StackPanel>
-			<Slider x:Name="redSlider"
-					Value="100"
-					Minimum="0"
-					Maximum="255"
-					ValueChanged="RedSlider_ValueChanged" />
+			<Grid Margin="15,15,15,15">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition Width="1*" />
+				</Grid.ColumnDefinitions>
 
-			<!-- Green -->
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Green"
-						   Style="{ThemeResource HeaderTextBlockStyle}"
-						   Margin="0,0,25,0" />
-				<TextBlock Text="{Binding ElementName=greenSlider, Path=Value}"
-						   Style="{ThemeResource HeaderTextBlockStyle}" />
-			</StackPanel>
-			<Slider x:Name="greenSlider"
-					Value="100"
-					Minimum="0"
-					Maximum="255"
-					ValueChanged="GreenSlider_ValueChanged" />
+				<StackPanel Grid.Column="1"
+							Orientation="Vertical">
+					<!-- Red -->
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Red"
+								   Style="{ThemeResource HeaderTextBlockStyle}"
+								   Margin="0,0,25,0" />
+						<TextBlock Text="{Binding ElementName=redSlider, Path=Value}"
+								   Style="{ThemeResource HeaderTextBlockStyle}" />
+					</StackPanel>
+					<Slider x:Name="redSlider"
+							Value="100"
+							Minimum="0"
+							Maximum="255"
+							ValueChanged="RedSlider_ValueChanged" />
 
-			<!-- Blue -->
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Blue"
-						   Style="{ThemeResource HeaderTextBlockStyle}"
-						   Margin="0,0,25,0" />
-				<TextBlock Text="{Binding ElementName=blueSlider, Path=Value}"
-						   Style="{ThemeResource HeaderTextBlockStyle}" />
-			</StackPanel>
-			<Slider x:Name="blueSlider"
-					Value="100"
-					Minimum="0"
-					Maximum="255"
-					ValueChanged="BlueSlider_ValueChanged" />
+					<!-- Green -->
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Green"
+								   Style="{ThemeResource HeaderTextBlockStyle}"
+								   Margin="0,0,25,0" />
+						<TextBlock Text="{Binding ElementName=greenSlider, Path=Value}"
+								   Style="{ThemeResource HeaderTextBlockStyle}" />
+					</StackPanel>
+					<Slider x:Name="greenSlider"
+							Value="100"
+							Minimum="0"
+							Maximum="255"
+							ValueChanged="GreenSlider_ValueChanged" />
+
+					<!-- Blue -->
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Blue"
+								   Style="{ThemeResource HeaderTextBlockStyle}"
+								   Margin="0,0,25,0" />
+						<TextBlock Text="{Binding ElementName=blueSlider, Path=Value}"
+								   Style="{ThemeResource HeaderTextBlockStyle}" />
+					</StackPanel>
+					<Slider x:Name="blueSlider"
+							Value="100"
+							Minimum="0"
+							Maximum="255"
+							ValueChanged="BlueSlider_ValueChanged" />
+				</StackPanel>
+			</Grid>
 		</StackPanel>
 	</Grid>
 </Page>

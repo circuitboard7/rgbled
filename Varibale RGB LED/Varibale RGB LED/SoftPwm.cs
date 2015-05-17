@@ -21,42 +21,51 @@ namespace Circuitboard7.RgbLed
 			this.Pin.Write(GpioPinValue.Low);
 		}
 
-		public GpioPin Pin { get; set; }
+		public GpioPin Pin { get; set; } = null;
 		public int MinimumValue { get; } = 0;
-		public int MaximumValue { get; } = 100;
+		public int MaximumValue { get; set; } = 100;
+
+		/// <summary>
+		/// Gets/set the width of the pulse in μs (micro-seconds).
+		/// </summary>
+		public double PulseWidth { get; set; } = 100d;
 
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 		private int _value = 0;
-		private const double _frequencyMultiplier = 3d;
 
 		public async void StartAsync()
 		{
 			this.CheckDisposed();
 
-			while (true)
+			while (!_cancellationTokenSource.IsCancellationRequested)
 			{
-				if (_cancellationTokenSource.IsCancellationRequested)
+				// ***
+				// *** Pulse High
+				// ***
 				{
-					break;
+					if (_value != 0)
+					{
+						this.Pin.Write(GpioPinValue.High);
+					}
+
+					double delayMicroseconds = (double)_value * this.PulseWidth;
+					await this.DelayMicroSeconds(delayMicroseconds);
 				}
 
-				int space = this.MaximumValue - _value;
-
-				if (_value != 0)
+				// ***
+				// *** Pulse Low
+				// ***
 				{
-					this.Pin.Write(GpioPinValue.High);
+					int space = this.MaximumValue - _value;
+
+					if (space != 0)
+					{
+						this.Pin.Write(GpioPinValue.Low);
+					}
+
+					double delayMicroseconds = (double)space * this.PulseWidth;
+					await this.DelayMicroSeconds(delayMicroseconds);
 				}
-
-				int delayMicroseconds = (int)((double)_value * 100d);
-				await this.DelayMicroSeconds(delayMicroseconds);
-
-				if (space != 0)
-				{
-					this.Pin.Write(GpioPinValue.Low);
-				}
-
-				delayMicroseconds = (int)((double)space * 100d);
-				await this.DelayMicroSeconds(delayMicroseconds);
 			}
 		}
 
@@ -103,11 +112,10 @@ namespace Circuitboard7.RgbLed
 			if (this.Pin == null) throw new ObjectDisposedException(nameof(SoftPwm));
 		}
 
-		private async Task DelayMicroSeconds(int delayMicroseconds)
+		private async Task DelayMicroSeconds(double delayMicroseconds)
 		{
-			double delayInMiliseconds = (int)((double)delayMicroseconds / 1000d);
-			int multipliedDelay = (int)(delayInMiliseconds / _frequencyMultiplier);
-			await Task.Delay(multipliedDelay, _cancellationTokenSource.Token);
+			double delayInMiliseconds = delayMicroseconds / 1000d;
+			await Task.Delay(TimeSpan.FromMilliseconds(delayInMiliseconds), _cancellationTokenSource.Token);
 		}
 	}
 
@@ -118,9 +126,10 @@ namespace Circuitboard7.RgbLed
 			return new SoftPwm(pin);
 		}
 
-		public static SoftPwm StartSoftPwm(this SoftPwm pwm, int initialValue = 0)
+		public static SoftPwm StartSoftPwm(this SoftPwm pwm, int initialValue = 0, double pulseWidth = 100d)
 		{
 			pwm.Value = initialValue;
+			pwm.PulseWidth = pulseWidth;
 			pwm.StartAsync();
 			return pwm;
 		}

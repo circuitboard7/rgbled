@@ -2,6 +2,10 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:local="using:Varibale_RGB_LED"
-			 RequestedTheme="Light">
-
+			 RequestedTheme="Dark">
+	<Application.Resources>
+		<ResourceDictionary>
+			<x:String x:Key="AppName">Variable RGB LED</x:String>
+		</ResourceDictionary>
+	</Application.Resources>
 </Application>
