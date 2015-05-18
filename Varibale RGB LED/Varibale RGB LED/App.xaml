@@ -6,6 +6,17 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<x:String x:Key="AppName">Variable RGB LED</x:String>
+
+			<Style x:Key="TitleTextBlockStyle"
+				   TargetType="TextBlock"
+				   BasedOn="{StaticResource BaseTextBlockStyle}">
+				<Setter Property="FontSize"
+						Value="23" />
+				<Setter Property="FontWeight"
+						Value="ExtraLight" />
+				<Setter Property="FontStretch"
+						Value="ExtraCondensed" />
+			</Style>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

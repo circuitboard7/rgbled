@@ -1,14 +1,26 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
-using System.Threading;
 
 namespace Circuitboard7.RgbLed
 {
+	/// <summary>
+	/// Provides a software based Pulse Width Modulation capability for any GPIO pin on
+	/// the device. PWM is used in a variety of circuits as a way to control analog 
+	/// circuits through digital interfaces.
+	/// </summary>
 	public class SoftPwm : IDisposable
 	{
 		private int _counter = 0;
+		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+		private int _value = 0;
 
+		/// <summary>
+		/// Creates an instance of SoftPwm given an instance
+		/// of Windows.Devices.Gpio.GpioPin.
+		/// </summary>
+		/// <param name="pin">An instance of Windows.Devices.Gpio.GpioPin to create the SoftPwm on.</param>
 		public SoftPwm(GpioPin pin)
 		{
 			if (pin == null) throw new ArgumentNullException(nameof(pin));
@@ -21,8 +33,20 @@ namespace Circuitboard7.RgbLed
 			this.Pin.Write(GpioPinValue.Low);
 		}
 
-		public GpioPin Pin { get; set; } = null;
+		/// <summary>
+		/// Gets the underlying Windows.Devices.Gpio.GpioPin instance that this SoftPwm instance
+		/// is controlling.
+		/// </summary>
+		public GpioPin Pin { get; protected set; } = null;
+
+		/// <summary>
+		/// Gets the minimum value that can be set.
+		/// </summary>
 		public int MinimumValue { get; } = 0;
+
+		/// <summary>
+		/// Gets/sets the maximum value allowed.
+		/// </summary>
 		public int MaximumValue { get; set; } = 100;
 
 		/// <summary>
@@ -30,9 +54,9 @@ namespace Circuitboard7.RgbLed
 		/// </summary>
 		public double PulseWidth { get; set; } = 100d;
 
-		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-		private int _value = 0;
-
+		/// <summary>
+		/// Start the SoftPwm in the GPIO pin.
+		/// </summary>
 		public async void StartAsync()
 		{
 			this.CheckDisposed();
@@ -43,7 +67,7 @@ namespace Circuitboard7.RgbLed
 				// *** Pulse High
 				// ***
 				{
-					if (_value != 0)
+					if (_value != this.MinimumValue)
 					{
 						this.Pin.Write(GpioPinValue.High);
 					}
@@ -58,7 +82,7 @@ namespace Circuitboard7.RgbLed
 				{
 					int space = this.MaximumValue - _value;
 
-					if (space != 0)
+					if (space != this.MinimumValue)
 					{
 						this.Pin.Write(GpioPinValue.Low);
 					}
@@ -69,6 +93,10 @@ namespace Circuitboard7.RgbLed
 			}
 		}
 
+		/// <summary>
+		/// Stop the SoftPwm on the GPIO pin.
+		/// </summary>
+		/// <returns></returns>
 		public Task StopAsync()
 		{
 			this.CheckDisposed();
@@ -76,6 +104,9 @@ namespace Circuitboard7.RgbLed
 			return Task.FromResult(0);
 		}
 
+		/// <summary>
+		/// Gets/sets the current value.
+		/// </summary>
 		public int Value
 		{
 			get
@@ -99,6 +130,9 @@ namespace Circuitboard7.RgbLed
 			}
 		}
 
+		/// <summary>
+		/// Stops the SoftPwm if active and calls Dispose on the GPIO pin.
+		/// </summary>
 		public void Dispose()
 		{
 			this.CheckDisposed();
@@ -107,31 +141,24 @@ namespace Circuitboard7.RgbLed
 			this.Pin = null;
 		}
 
+		/// <summary>
+		/// Checks if this instance has been disposed and 
+		/// throws the ObjectDisposedException exception if it is.
+		/// </summary>
 		private void CheckDisposed()
 		{
 			if (this.Pin == null) throw new ObjectDisposedException(nameof(SoftPwm));
 		}
 
+		/// <summary>
+		/// Delays the current thread by the given number of μs.
+		/// </summary>
+		/// <param name="delayMicroseconds">The number of μs to delay the thread.</param>
+		/// <returns>Returns an awaitable Task instance.</returns>
 		private async Task DelayMicroSeconds(double delayMicroseconds)
 		{
 			double delayInMiliseconds = delayMicroseconds / 1000d;
 			await Task.Delay(TimeSpan.FromMilliseconds(delayInMiliseconds), _cancellationTokenSource.Token);
-		}
-	}
-
-	public static class PwmExtensions
-	{
-		public static SoftPwm CreateSoftPwm(this GpioPin pin)
-		{
-			return new SoftPwm(pin);
-		}
-
-		public static SoftPwm StartSoftPwm(this SoftPwm pwm, int initialValue = 0, double pulseWidth = 100d)
-		{
-			pwm.Value = initialValue;
-			pwm.PulseWidth = pulseWidth;
-			pwm.StartAsync();
-			return pwm;
 		}
 	}
 }
