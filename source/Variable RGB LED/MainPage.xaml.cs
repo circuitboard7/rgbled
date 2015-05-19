@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
+using Windows.Devices.Gpio.SoftPwm;
+using Windows.Devices.Gpio.FluentApi;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,16 +18,16 @@ namespace Circuitboard7.RgbLed
 		{
 			public static class Pin
 			{
-				public const int RedLed = 6;
-				public const int GreenLed = 5;
-				public const int BlueLed = 22;
+				public const int Red = 6;
+				public const int Green = 5;
+				public const int Blue = 22;
 			}
 
 			public static class Default
 			{
-				public const int RedLedValue = 11;
-				public const int GreenLedValue = 54;
-				public const int BlueLedValue = 37;
+				public const int Red = 11;
+				public const int Green = 54;
+				public const int Blue = 37;
 				public const double PulseWidth = 25d;
 			}
 
@@ -38,9 +40,9 @@ namespace Circuitboard7.RgbLed
 			}
 		}
 
-		private SoftPwm RedPwm { get; set; }
-		private SoftPwm GreenPwm { get; set; }
-		private SoftPwm BluePwm { get; set; }
+		private ISoftPwm RedPwm { get; set; }
+		private ISoftPwm GreenPwm { get; set; }
+		private ISoftPwm BluePwm { get; set; }
 
 		public MainPage()
 		{
@@ -64,17 +66,37 @@ namespace Circuitboard7.RgbLed
 				// ***
 				// *** Get saved application settings
 				// ***
-				double pulseWidth = ApplicationSettings.Get<double>(Constants.Setting.PulseWdith, Constants.Default.PulseWidth);
-				int red = ApplicationSettings.Get<int>(Constants.Setting.Red, Constants.Default.RedLedValue);
-				int green = ApplicationSettings.Get<int>(Constants.Setting.Green, Constants.Default.GreenLedValue);
-				int blue = ApplicationSettings.Get<int>(Constants.Setting.Blue, Constants.Default.BlueLedValue);
+				int red = ApplicationSettings.Get(Constants.Setting.Red, Constants.Default.Red);
+				int green = ApplicationSettings.Get(Constants.Setting.Green, Constants.Default.Green);
+				int blue = ApplicationSettings.Get(Constants.Setting.Blue, Constants.Default.Blue);
+				double pulseWidth = ApplicationSettings.Get(Constants.Setting.PulseWdith, Constants.Default.PulseWidth);
 
 				// ***
 				// *** Setup the three pins on a Soft PWM
 				// ***
-				this.RedPwm = gpio.OpenPin(Constants.Pin.RedLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(red, pulseWidth);
-				this.GreenPwm = gpio.OpenPin(Constants.Pin.GreenLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(green, pulseWidth);
-				this.BluePwm = gpio.OpenPin(Constants.Pin.BlueLed, GpioSharingMode.Exclusive).CreateSoftPwm().StartSoftPwm(blue, pulseWidth);
+				this.RedPwm = gpio.OnPin(Constants.Pin.Red)
+										.AsExclusive()
+										.Open()
+										.AssignSoftPwm()
+										.WithValue(red)
+										.WithPulseWidth(pulseWidth)
+										.Start();
+
+				this.GreenPwm = gpio.OnPin(Constants.Pin.Green)
+										.AsExclusive()
+										.Open()
+										.AssignSoftPwm()
+										.WithValue(green)
+										.WithPulseWidth(pulseWidth)
+										.Start();
+
+				this.BluePwm = gpio.OnPin(Constants.Pin.Blue)
+										.AsExclusive()
+										.Open()
+										.AssignSoftPwm()
+										.WithValue(blue)
+										.WithPulseWidth(pulseWidth)
+										.Start();
 
 				// ***
 				// *** Initialize the sliders
@@ -172,7 +194,12 @@ namespace Circuitboard7.RgbLed
 			}
 		}
 
-		private void InitializeSliderControl(Slider slider, SoftPwm softPwm)
+		private void ExitButton_Click(object sender, RoutedEventArgs e)
+		{
+			App.Current.Exit();
+		}
+
+		private void InitializeSliderControl(Slider slider, ISoftPwm softPwm)
 		{
 			slider.Minimum = softPwm.MinimumValue;
 			slider.Maximum = softPwm.MaximumValue;
@@ -199,25 +226,33 @@ namespace Circuitboard7.RgbLed
 		{
 			if (redSlider != null && greenSlider != null && blueSlider != null && selectedColor != null)
 			{
+				// ***
+				// *** Calculate each of the three colors
+				// ***
 				byte r = (byte)(byte.MaxValue * (this.redSlider.Value / (this.redSlider.Maximum - this.redSlider.Minimum)));
 				byte g = (byte)(byte.MaxValue * (this.greenSlider.Value / (this.greenSlider.Maximum - this.greenSlider.Minimum)));
 				byte b = (byte)(byte.MaxValue * (this.blueSlider.Value / (this.blueSlider.Maximum - this.blueSlider.Minimum)));
 
+				// ***
+				// *** Create an instance of the color
+				// ***
 				Color color = Color.FromArgb((byte)(byte.MaxValue * .95), r, g, b);
 
-				string colorText = string.Format("#{0:x2}{1:x2}{2:x2}", r,g,b);
+				// ***
+				// *** Create a textual representation of the color
+				// ***
+				string colorText = string.Format("#{0:x2}{1:x2}{2:x2}", r, g, b);
 
+				// ***
+				// *** Update the UI
+				// ***
 				await Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
 				{
+					selectedColor.Background = null;
 					selectedColor.Background = new SolidColorBrush(color);
 					colorLabel.Text = colorText;
-                }).AsTask();
+				}).AsTask();
 			}
-		}
-
-		private void ExitButton_Click(object sender, RoutedEventArgs e)
-		{
-			App.Current.Exit();
 		}
 	}
 }

@@ -3,14 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 
-namespace Circuitboard7.RgbLed
+namespace Windows.Devices.Gpio.SoftPwm
 {
 	/// <summary>
 	/// Provides a software based Pulse Width Modulation capability for any GPIO pin on
 	/// the device. PWM is used in a variety of circuits as a way to control analog 
 	/// circuits through digital interfaces.
 	/// </summary>
-	public class SoftPwm : IDisposable
+	public class SoftPwm : ISoftPwm
 	{
 		private int _counter = 0;
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
