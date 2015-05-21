@@ -1,6 +1,23 @@
-﻿using Windows.Devices.Gpio;
+﻿// Copyright © 2015 Daniel Porrey
+//
+// This file is part of SoftPwmSharp.
+// 
+// SoftPwmSharp is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// SoftPwmSharp is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with SoftPwmSharp.  If not, see http://www.gnu.org/licenses/.
+//
+using System;
 
-namespace Windows.Devices.Gpio.SoftPwm
+namespace Windows.Devices.Gpio.SoftPwmSharp
 {
 	/// <summary>
 	/// Fluent API Extension for SoftPwm.
@@ -14,23 +31,18 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// <param name="pin">An instance of Windows.Devices.Gpio.GpioPin to 
 		/// create the SoftPwm on.</param>
 		/// <returns>Returns a new SOftPwm instance.</returns>
-		public static SoftPwm AssignSoftPwm(this GpioPin pin)
+		public static ISoftPwm AssignSoftPwm(this GpioPin pin)
 		{
 			return new SoftPwm(pin);
 		}
 
 		/// <summary>
-		/// Starts the given SoftPwm instance initializing it with THE initial value
-		/// and a pulse width.
+		/// Starts the given SoftPwm instance.
 		/// </summary>
 		/// <param name="pwm">The instance of SoftPwm to start.</param>
-		/// <param name="initialValue">The initial value to set the SoftPwm instance to.</param>
-		/// <param name="pulseWidth">The pulse width to use given in μs (micro-seconds).</param>
 		/// <returns></returns>
-		public static SoftPwm Start(this SoftPwm pwm, int initialValue = 0, double pulseWidth = 100d)
+		public static ISoftPwm Start(this ISoftPwm pwm)
 		{
-			pwm.Value = initialValue;
-			pwm.PulseWidth = pulseWidth;
 			pwm.StartAsync();
 			return pwm;
 		}
@@ -41,21 +53,48 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// <param name="pwm">The instance of SoftPwm to start.</param>
 		/// <param name="value">The value to set the SoftPwm instance to.</param>
 		/// <returns></returns>
-		public static SoftPwm WithValue(this SoftPwm pwm, int value)
+		public static ISoftPwm WithValue(this ISoftPwm pwm, double value)
 		{
 			pwm.Value = value;
 			return pwm;
 		}
 
 		/// <summary>
-		/// 
+		/// Sets the pulse frequency (in Hz) of the SoftPwm instance.
 		/// </summary>
 		/// <param name="pwm">The instance of SoftPwm to start.</param>
-		/// <param name="pulseWidth">The pulse width to use given in μs (micro-seconds).</param>
+		/// <param name="pulseFrequency">The pulse frequency to use given in Hz.</param>
 		/// <returns></returns>
-		public static SoftPwm WithPulseWidth(this SoftPwm pwm, double pulseWidth)
+		public static ISoftPwm WithPulseFrequency(this ISoftPwm pwm, double pulseFrequency)
 		{
-			pwm.PulseWidth = pulseWidth;
+			pwm.PulseFrequency = pulseFrequency;
+			return pwm;
+		}
+
+		/// <summary>
+		/// Attaches a handler to the PulseWidthChangedEvent to watch for
+		/// changes to the3 HighPulseWidth and LowPulseWidth properties.
+		/// </summary>
+		/// <param name="pwm">The instance of SoftPwm to start.</param>
+		/// <param name="eventHandler">A PulseWidthChangedEventHandler method.</param>
+		/// <returns></returns>
+		public static ISoftPwm WatchPulseWidthChanges(this ISoftPwm pwm, PulseWidthChangedEventHandler eventHandler)
+		{
+			if (pwm is SoftPwm)
+			{
+				((SoftPwm)pwm).PulseWidthChanged += eventHandler;
+			}
+
+			return pwm;
+        }
+
+		public static ISoftPwm WatchPulse(this ISoftPwm pwm, EventHandler eventHandler)
+		{
+			if (pwm is SoftPwm)
+			{
+				((SoftPwm)pwm).PwmPulsed += eventHandler;
+			}
+
 			return pwm;
 		}
 	}

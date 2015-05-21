@@ -1,22 +1,19 @@
 ﻿<Application x:Class="Circuitboard7.RgbLed.App"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:local="using:Varibale_RGB_LED"
+			 xmlns:local="using:Circuitboard7.RgbLed"
+			 xmlns:common="using:Circuitboard7.RgbLed.Converters"
 			 RequestedTheme="Dark">
 	<Application.Resources>
 		<ResourceDictionary>
 			<x:String x:Key="AppName">Variable RGB LED</x:String>
 
-			<Style x:Key="TitleTextBlockStyle"
-				   TargetType="TextBlock"
-				   BasedOn="{StaticResource BaseTextBlockStyle}">
-				<Setter Property="FontSize"
-						Value="23" />
-				<Setter Property="FontWeight"
-						Value="ExtraLight" />
-				<Setter Property="FontStretch"
-						Value="ExtraCondensed" />
-			</Style>
+			<!-- ***            -->
+			<!-- *** Converters -->
+			<!-- ***            -->
+			<common:ValueFormatConverter x:Key="ValueFormatConverter"></common:ValueFormatConverter>
+			<common:FrequencyToTimeConverter x:Key="FrequencyToTimeConverter"></common:FrequencyToTimeConverter>
+			<common:CrayonColorToObjectConverter x:Key="CrayonColorToObjectConverter"></common:CrayonColorToObjectConverter>			
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

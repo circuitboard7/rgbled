@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SoftPwm")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SoftPwmSharp")]
+[assembly: AssemblyDescription("A software based Pulse Width Modulation library for C#.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SoftPwm")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Daniel Porrey")]
+[assembly: AssemblyProduct("SoftPwmSharp")]
+[assembly: AssemblyCopyright("Copyright © 2015 Daniel Porrey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

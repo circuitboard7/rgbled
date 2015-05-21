@@ -2,16 +2,18 @@
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 
-namespace Windows.Devices.Gpio.SoftPwm
+namespace Windows.Devices.Gpio.SoftPwmSharp
 {
 	public interface ISoftPwm : IDisposable
 	{
 		GpioPin Pin { get; }
-		int MaximumValue { get; set; }
-		int MinimumValue { get; }
-		double PulseWidth { get; set; }
-		int Value { get; set; }
+		double MaximumValue { get; set; }
+		double MinimumValue { get; }
+		double PulseFrequency { get; set; }
+		double HighPulseWidth { get; }
+		double LowPulseWidth { get; }
+		double Value { get; set; }
 		void StartAsync();
 		Task StopAsync();
-	}
+    }
 }

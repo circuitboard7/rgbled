@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GPIO Fluent API")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Provides a fluent API for the GPIO library.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Daniel M. Porrey")]
 [assembly: AssemblyProduct("GPIO Fluent API")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2015 Daniel Porrey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

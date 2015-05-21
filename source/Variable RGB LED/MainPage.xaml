@@ -8,9 +8,14 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="75" />
+			<RowDefinition Height="45" />
 			<RowDefinition Height="*" />
-			<RowDefinition Height="75" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="85" />
 		</Grid.RowDefinitions>
 
 		<Grid.Background>
@@ -40,117 +45,508 @@
 					   Style="{ThemeResource TitleTextBlockStyle}" />
 		</Border>
 
-		<!-- Sliders -->
+		<!-- Red -->
 		<Grid Grid.Row="1"
-			  Margin="5,15,5,0">
+			  Margin="15,0,15,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*" />
-				<ColumnDefinition Width="2*" />
-				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="6*" />
 			</Grid.ColumnDefinitions>
 
-			<StackPanel Grid.Column="1"
-						Orientation="Vertical">
-				<!-- Red -->
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Red"
-							   Style="{ThemeResource TitleTextBlockStyle}"
-							   Margin="0,0,25,0" />
-					<TextBlock Text="{Binding ElementName=redSlider, Path=Value}"
-							   Style="{ThemeResource TitleTextBlockStyle}" />
-				</StackPanel>
-				<Slider x:Name="redSlider"
-						Value="100"
-						Minimum="0"
-						Maximum="255"
-						ValueChanged="RedSlider_ValueChanged" />
+			<!-- Red Label -->
+			<TextBlock Grid.Column="0"
+					   Text="Red"
+					   Style="{ThemeResource SubheaderTextBlockStyle}"
+					   Margin="20,20,0,0"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Top" />
 
-				<!-- Green -->
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Green"
-							   Style="{ThemeResource TitleTextBlockStyle}"
-							   Margin="0,0,25,0" />
-					<TextBlock Text="{Binding ElementName=greenSlider, Path=Value}"
-							   Style="{ThemeResource TitleTextBlockStyle}" />
-				</StackPanel>
-				<Slider x:Name="greenSlider"
-						Value="100"
-						Minimum="0"
-						Maximum="255"
-						ValueChanged="GreenSlider_ValueChanged" />
-
-				<!-- Blue -->
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Blue"
-							   Style="{ThemeResource TitleTextBlockStyle}"
-							   Margin="0,0,25,0" />
-					<TextBlock Text="{Binding ElementName=blueSlider, Path=Value}"
-							   Style="{ThemeResource TitleTextBlockStyle}" />
-				</StackPanel>
-				<Slider x:Name="blueSlider"
-						Value="100"
-						Minimum="0"
-						Maximum="255"
-						ValueChanged="BlueSlider_ValueChanged" />
-
-				<!-- Pulse Width -->
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Pulse Width"
-							   Style="{ThemeResource TitleTextBlockStyle}"
-							   Margin="0,0,25,0" />
-					<TextBlock Text="{Binding ElementName=pulseWidthSlider, Path=Value}"
-							   Style="{ThemeResource TitleTextBlockStyle}" />
-				</StackPanel>
-				<Slider x:Name="pulseWidthSlider"
-						Value="100"
-						Minimum="10"
-						Maximum="200"
-						ValueChanged="PulseWidth_ValueChanged" />
-			</StackPanel>
-		</Grid>
-
-		<!-- Selected Color -->
-		<Grid Grid.Row="2"
-			  Margin="5,5,5,10">
-			<Grid>
+			<!-- Red Controls -->
+			<Grid Grid.Column="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="1*" />
-					<ColumnDefinition Width="1*" />
-					<ColumnDefinition Width="1*" />
-					<ColumnDefinition Width="1*" />
-					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="6*" />
 				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="1*" />
+				</Grid.RowDefinitions>
 
-				<TextBlock Grid.Column="1"
-						   Margin="0,0,15,0"
-						   VerticalAlignment="Center"
-						   HorizontalAlignment="Right"
-						   Style="{ThemeResource TitleTextBlockStyle}"
-						   Text="Selected Color"
-						   Foreground="#FFFFFF" />
-
-				<Border Grid.Column="2"
-						x:Name="selectedColor"
-						Margin="5,0,25,0"
-						BorderBrush="#06CFED"
-						CornerRadius="3"
-						BorderThickness="1"
-						Background="Black" />
-
-				<TextBlock x:Name="colorLabel"
-						   Grid.Column="3"
-						   Margin="15,0,0,0"
+				<!-- Value Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="0"
+						   Text="Value"
 						   VerticalAlignment="Center"
 						   HorizontalAlignment="Left"
-						   Style="{ThemeResource TitleTextBlockStyle}"
-						   Text="#FFFFFF"
-						   Foreground="#FFFFFF" />
+						   Style="{ThemeResource TitleTextBlockStyle}" />
 
-				<Button Grid.Column="4"
+				<!-- Value Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Value Label -->
+					<TextBlock Grid.Row="0"
+							   Grid.Column="0"
+							   Text="{x:Bind RedValue, Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Center"
+							   FontWeight="Bold" />
+
+					<!-- High/Low Pulse Label -->
+					<StackPanel Grid.Row="0"
+								Grid.Column="1"
+								Orientation="Horizontal"
+								HorizontalAlignment="Right">
+						<!-- High Pulse Label -->
+						<TextBlock Text="{x:Bind RedHighPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   Margin="0,0,25,0"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+
+						<!-- Low Pulse Label -->
+						<TextBlock Text="{x:Bind RedLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+					</StackPanel>
+
+					<!-- Value Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumValue, Mode=OneTime}"
+							Maximum="{x:Bind MaximumValue, Mode=OneTime}"
+							Value="{x:Bind RedValue, Mode=TwoWay}" />
+				</Grid>
+
+				<!-- Pulse Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="1"
+						   Text="Pulse"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Style="{ThemeResource TitleTextBlockStyle}" />
+
+				<!-- Pulse Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Pulse Frequency -->
+					<TextBlock Grid.Column="0"
+							   Grid.Row="0"
+							   Text="{x:Bind RedPulseFrequency, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:#,##0 Hz]', Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left" />
+
+					<!-- Pulse Width -->
+					<TextBlock Grid.Column="1"
+							   Grid.Row="0"
+							   Text="{x:Bind RedPulseFrequency, Converter={StaticResource FrequencyToTimeConverter}, Mode=OneWay}"
+							   Style="{ThemeResource BodyTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Right" />
+
+					<!-- Pulse Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumFrequency, Mode=OneTime}"
+							Maximum="{x:Bind MaximumFrequency, Mode=OneTime}"
+							Value="{x:Bind RedPulseFrequency, Mode=TwoWay}" />
+				</Grid>
+			</Grid>
+		</Grid>
+
+		<!-- Separator Line -->
+		<Rectangle Margin="15,0,15,0"
+				   Grid.Row="2"
+				   Height="3"
+				   Fill="#99088CBD" />
+
+		<!-- Green -->
+		<Grid Grid.Row="3"
+			  Margin="15,0,15,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="6*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Green Label -->
+			<TextBlock Grid.Column="0"
+					   Text="Green"
+					   Style="{ThemeResource SubheaderTextBlockStyle}"
+					   Margin="20,20,0,0"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Top" />
+
+			<!-- Green Controls -->
+			<Grid Grid.Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="6*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="1*" />
+				</Grid.RowDefinitions>
+
+				<!-- Value Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="0"
+						   Text="Value"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Style="{ThemeResource TitleTextBlockStyle}" />
+
+				<!-- Value Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Value Label -->
+					<TextBlock Grid.Row="0"
+							   Grid.Column="0"
+							   Text="{x:Bind GreenValue, Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Center"
+							   FontWeight="Bold" />
+
+					<!-- High/Low Pulse Label -->
+					<StackPanel Grid.Row="0"
+								Grid.Column="1"
+								Orientation="Horizontal"
+								HorizontalAlignment="Right">
+						<!-- High Pulse Label -->
+						<TextBlock Text="{x:Bind GreenHighPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   Margin="0,0,25,0"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+
+						<!-- Low Pulse Label -->
+						<TextBlock Text="{x:Bind GreenLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+					</StackPanel>
+
+					<!-- Value Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumValue, Mode=OneTime}"
+							Maximum="{x:Bind MaximumValue, Mode=OneTime}"
+							Value="{x:Bind GreenValue, Mode=TwoWay}" />
+				</Grid>
+
+				<!-- Pulse Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="1"
+						   Text="Pulse"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Style="{ThemeResource TitleTextBlockStyle}" />
+
+				<!-- Pulse Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Pulse Frequency -->
+					<TextBlock Grid.Column="0"
+							   Grid.Row="0"
+							   Text="{x:Bind GreenPulseFrequency, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:#,##0 Hz]', Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left" />
+
+					<!-- Pulse Width -->
+					<TextBlock Grid.Column="1"
+							   Grid.Row="0"
+							   Text="{x:Bind GreenPulseFrequency, Converter={StaticResource FrequencyToTimeConverter}, Mode=OneWay}"
+							   Style="{ThemeResource BodyTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Right" />
+
+					<!-- Pulse Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumFrequency, Mode=OneTime}"
+							Maximum="{x:Bind MaximumFrequency, Mode=OneTime}"
+							Value="{x:Bind GreenPulseFrequency, Mode=TwoWay}" />
+				</Grid>
+			</Grid>
+		</Grid>
+
+		<!-- Separator Line -->
+		<Rectangle Margin="15,0,15,0"
+				   Grid.Row="4"
+				   Height="3"
+				   Fill="#99088CBD" />
+
+		<!-- Blue -->
+		<Grid Grid.Row="5"
+			  Margin="15,0,15,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="6*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Blue Label -->
+			<TextBlock Grid.Column="0"
+					   Text="Blue"
+					   Style="{ThemeResource SubheaderTextBlockStyle}"
+					   Margin="20,20,0,0"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Top" />
+
+			<!-- Blue Controls -->
+			<Grid Grid.Column="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="6*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="1*" />
+				</Grid.RowDefinitions>
+
+				<!-- Value Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="0"
+						   Text="Value"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Style="{ThemeResource TitleTextBlockStyle}" />
+
+				<!-- Value Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Value Label -->
+					<TextBlock Grid.Row="0"
+							   Grid.Column="0"
+							   Text="{x:Bind BlueValue, Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Center"
+							   FontWeight="Bold"/>
+
+					<!-- High/Low Pulse Label -->
+					<StackPanel Grid.Row="0"
+								Grid.Column="1"
+								Orientation="Horizontal"
+								HorizontalAlignment="Right">
+						<!-- High Pulse Label -->
+						<TextBlock Text="{x:Bind BlueHighPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   Margin="0,0,25,0"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+
+						<!-- Low Pulse Label -->
+						<TextBlock Text="{x:Bind BlueLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+								   Style="{ThemeResource BodyTextBlockStyle}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+					</StackPanel>
+
+					<!-- Value Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumValue, Mode=OneTime}"
+							Maximum="{x:Bind MaximumValue, Mode=OneTime}"
+							Value="{x:Bind BlueValue, Mode=TwoWay}" />
+				</Grid>
+
+				<!-- Pulse Label -->
+				<TextBlock Grid.Column="0"
+						   Grid.Row="1"
+						   Text="Pulse"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Style="{ThemeResource TitleTextBlockStyle}" />
+
+				<!-- Pulse Controls -->
+				<Grid Grid.Column="1"
+					  Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="1*" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<!-- Pulse Frequency -->
+					<TextBlock Grid.Column="0"
+							   Grid.Row="0"
+							   Text="{x:Bind BluePulseFrequency, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:#,##0 Hz]', Mode=OneWay}"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left" />
+
+					<!-- Pulse Width -->
+					<TextBlock Grid.Column="1"
+							   Grid.Row="0"
+							   Text="{x:Bind BluePulseFrequency, Converter={StaticResource FrequencyToTimeConverter}, Mode=OneWay}"
+							   Style="{ThemeResource BodyTextBlockStyle}"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Right" />
+
+					<!-- Pulse Slider -->
+					<Slider Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Minimum="{x:Bind MinimumFrequency, Mode=OneTime}"
+							Maximum="{x:Bind MaximumFrequency, Mode=OneTime}"
+							Value="{x:Bind BluePulseFrequency, Mode=TwoWay}" />
+				</Grid>
+			</Grid>
+		</Grid>
+
+		<!-- Separator Line -->
+		<Rectangle Margin="15,0,15,0"
+				   Grid.Row="6"
+				   Height="3"
+				   Fill="#99088CBD" />
+
+		<!-- Bottom Bar -->
+		<Grid Grid.Row="7"
+			  Margin="0,5,0,0">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Defaults Button -->
+				<Button Grid.Column="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Content="Defaults"
+						Margin="15,5,5,5"
+						Click="Defaults_Click" />
+
+				<!-- Predefined Color -->
+				<StackPanel Grid.Column="1"
+							Orientation="Vertical"
+							Margin="25,0,5,0">
+					<TextBlock Text="Predefined Color"
+							   Style="{ThemeResource TitleTextBlockStyle}"
+							   Margin="0,0,0,5" />
+					<ComboBox HorizontalAlignment="Stretch"
+							  ItemsSource="{x:Bind CrayonColors, Mode=OneWay}"
+							  SelectedItem="{x:Bind SelectedCrayonColor, Converter={StaticResource CrayonColorToObjectConverter}, Mode=TwoWay}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate x:DataType="local:CrayonColor">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="40" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Border Grid.Column="0"
+											Margin="0,0,2,0"
+											BorderBrush="White"
+											BorderThickness="1"
+											Background="{x:Bind Hex, Mode=OneTime}"
+											Height="24"
+											Width="24"
+											VerticalAlignment="Center"
+											HorizontalAlignment="Center" />
+
+									<TextBlock Grid.Column="1"
+											   Text="{x:Bind NameDisplay, Mode=OneTime}"
+											   HorizontalAlignment="Left"
+											   VerticalAlignment="Center" />
+								</Grid>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<!-- Color Display -->
+				<Grid  Grid.Column="2"
+					   Margin="5,0,5,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="1*" />
+					</Grid.ColumnDefinitions>
+
+					<StackPanel Grid.Column="0"
+								Orientation="Vertical"
+								Margin="25,0,5,0">
+						<!-- Selected Color Label -->
+						<TextBlock VerticalAlignment="Center"
+								   HorizontalAlignment="Right"
+								   Style="{ThemeResource TitleTextBlockStyle}"
+								   Text="Selected Color"
+								   Foreground="#FFFFFF" />
+						<!-- Selected Color Hex Value Display -->
+						<TextBlock Grid.Column="3"
+								   VerticalAlignment="Center"
+								   HorizontalAlignment="Right"
+								   Style="{ThemeResource SubtitleTextBlockStyle}"
+								   Text="{x:Bind SelectedColorText, Mode=OneWay}"
+								   Foreground="#FFFFFF" />
+					</StackPanel>
+
+					<Border Grid.Column="1"
+							BorderBrush="#06CFED"
+							CornerRadius="3"
+							BorderThickness="1"
+							Background="{x:Bind SelectedColorText, Mode=OneWay}"
+							Margin="10,10,10,10" />
+				</Grid>
+
+				<!-- Exit Button -->
+				<Button Grid.Column="3"
 						HorizontalAlignment="Right"
-						VerticalAlignment="Bottom"
+						VerticalAlignment="Center"
 						Content="Exit"
-						Margin="5,5,5,5"
+						Margin="5,5,15,5"
 						Click="ExitButton_Click" />
 			</Grid>
 		</Grid>

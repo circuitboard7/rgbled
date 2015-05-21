@@ -1,0 +1,597 @@
+[
+  {
+    "Name": "Mahogany",
+    "Hex": "#CD4A4A",
+    "Rgb": "205,74,74"
+  },
+  {
+    "Name": "Fuzzy Wuzzy Brown",
+    "Hex": "#CC6666",
+    "Rgb": "204,102,102"
+  },
+  {
+    "Name": "Chestnut",
+    "Hex": "#BC5D58",
+    "Rgb": "188,93,88"
+  },
+  {
+    "Name": "Red Orange",
+    "Hex": "#FF5349",
+    "Rgb": "255,83,73"
+  },
+  {
+    "Name": "Sunset Orange",
+    "Hex": "#FD5E53",
+    "Rgb": "253,94,83"
+  },
+  {
+    "Name": "Bittersweet",
+    "Hex": "#FD7C6E",
+    "Rgb": "253,124,110"
+  },
+  {
+    "Name": "Melon",
+    "Hex": "#FDBCB4",
+    "Rgb": "253,188,180"
+  },
+  {
+    "Name": "Outrageous Orange",
+    "Hex": "#FF6E4A",
+    "Rgb": "255,110,74"
+  },
+  {
+    "Name": "Vivid Tangerine",
+    "Hex": "#FFA089",
+    "Rgb": "255,160,137"
+  },
+  {
+    "Name": "Burnt Sienna",
+    "Hex": "#EA7E5D",
+    "Rgb": "234,126,93"
+  },
+  {
+    "Name": "Brown",
+    "Hex": "#B4674D",
+    "Rgb": "180,103,77"
+  },
+  {
+    "Name": "Sepia",
+    "Hex": "#A5694F",
+    "Rgb": "165,105,79"
+  },
+  {
+    "Name": "Orange",
+    "Hex": "#FF7538",
+    "Rgb": "255,117,56"
+  },
+  {
+    "Name": "Burnt Orange",
+    "Hex": "#FF7F49",
+    "Rgb": "255,127,73"
+  },
+  {
+    "Name": "Copper",
+    "Hex": "#DD9475",
+    "Rgb": "221,148,117"
+  },
+  {
+    "Name": "Mango Tango",
+    "Hex": "#FF8243",
+    "Rgb": "255,130,67"
+  },
+  {
+    "Name": "Atomic Tangerine",
+    "Hex": "#FFA474",
+    "Rgb": "255,164,116"
+  },
+  {
+    "Name": "Beaver",
+    "Hex": "#9F8170",
+    "Rgb": "159,129,112"
+  },
+  {
+    "Name": "Antique Brass",
+    "Hex": "#CD9575",
+    "Rgb": "205,149,117"
+  },
+  {
+    "Name": "Desert Sand",
+    "Hex": "#EFCDB8",
+    "Rgb": "239,205,184"
+  },
+  {
+    "Name": "Raw Sienna",
+    "Hex": "#D68A59",
+    "Rgb": "214,138,89"
+  },
+  {
+    "Name": "Tumbleweed",
+    "Hex": "#DEAA88",
+    "Rgb": "222,170,136"
+  },
+  {
+    "Name": "Tan",
+    "Hex": "#FAA76C",
+    "Rgb": "250,167,108"
+  },
+  {
+    "Name": "Peach",
+    "Hex": "#FFCFAB",
+    "Rgb": "255,207,171"
+  },
+  {
+    "Name": "Macaroni and Cheese",
+    "Hex": "#FFBD88",
+    "Rgb": "255,189,136"
+  },
+  {
+    "Name": "Apricot",
+    "Hex": "#FDD9B5",
+    "Rgb": "253,217,181"
+  },
+  {
+    "Name": "Neon Carrot",
+    "Hex": "#FFA343",
+    "Rgb": "255,163,67"
+  },
+  {
+    "Name": "Almond",
+    "Hex": "#EFDBC5",
+    "Rgb": "239,219,197"
+  },
+  {
+    "Name": "Yellow Orange",
+    "Hex": "#FFB653",
+    "Rgb": "255,182,83"
+  },
+  {
+    "Name": "Gold",
+    "Hex": "#E7C697",
+    "Rgb": "231,198,151"
+  },
+  {
+    "Name": "Shadow",
+    "Hex": "#8A795D",
+    "Rgb": "138,121,93"
+  },
+  {
+    "Name": "Banana Mania",
+    "Hex": "#FAE7B5",
+    "Rgb": "250,231,181"
+  },
+  {
+    "Name": "Sunglow",
+    "Hex": "#FFCF48",
+    "Rgb": "255,207,72"
+  },
+  {
+    "Name": "Goldenrod",
+    "Hex": "#FCD975",
+    "Rgb": "252,217,117"
+  },
+  {
+    "Name": "Dandelion",
+    "Hex": "#FDDB6D",
+    "Rgb": "253,219,109"
+  },
+  {
+    "Name": "Yellow",
+    "Hex": "#FCE883",
+    "Rgb": "252,232,131"
+  },
+  {
+    "Name": "Green Yellow",
+    "Hex": "#F0E891",
+    "Rgb": "240,232,145"
+  },
+  {
+    "Name": "Spring Green",
+    "Hex": "#ECEABE",
+    "Rgb": "236,234,190"
+  },
+  {
+    "Name": "Olive Green",
+    "Hex": "#BAB86C",
+    "Rgb": "186,184,108"
+  },
+  {
+    "Name": "Laser Lemon",
+    "Hex": "#FDFC74",
+    "Rgb": "253,252,116"
+  },
+  {
+    "Name": "Unmellow Yellow",
+    "Hex": "#FDFC74",
+    "Rgb": "253,252,116"
+  },
+  {
+    "Name": "Canary",
+    "Hex": "#FFFF99",
+    "Rgb": "255,255,153"
+  },
+  {
+    "Name": "Yellow Green",
+    "Hex": "#C5E384",
+    "Rgb": "197,227,132"
+  },
+  {
+    "Name": "Inch Worm",
+    "Hex": "#B2EC5D",
+    "Rgb": "178,236,93"
+  },
+  {
+    "Name": "Asparagus",
+    "Hex": "#87A96B",
+    "Rgb": "135,169,107"
+  },
+  {
+    "Name": "Granny Smith Apple",
+    "Hex": "#A8E4A0",
+    "Rgb": "168,228,160"
+  },
+  {
+    "Name": "Electric Lime",
+    "Hex": "#1DF914",
+    "Rgb": "29,249,20"
+  },
+  {
+    "Name": "Screamin Green",
+    "Hex": "#76FF7A",
+    "Rgb": "118,255,122"
+  },
+  {
+    "Name": "Fern",
+    "Hex": "#71BC78",
+    "Rgb": "113,188,120"
+  },
+  {
+    "Name": "Forest Green",
+    "Hex": "#6DAE81",
+    "Rgb": "109,174,129"
+  },
+  {
+    "Name": "Sea Green",
+    "Hex": "#9FE2BF",
+    "Rgb": "159,226,191"
+  },
+  {
+    "Name": "Green",
+    "Hex": "#1CAC78",
+    "Rgb": "28,172,120"
+  },
+  {
+    "Name": "Mountain Meadow",
+    "Hex": "#30BA8F",
+    "Rgb": "48,186,143"
+  },
+  {
+    "Name": "Shamrock",
+    "Hex": "#45CEA2",
+    "Rgb": "69,206,162"
+  },
+  {
+    "Name": "Jungle Green",
+    "Hex": "#3BB08F",
+    "Rgb": "59,176,143"
+  },
+  {
+    "Name": "Caribbean Green",
+    "Hex": "#1CD3A2",
+    "Rgb": "28,211,162"
+  },
+  {
+    "Name": "Tropical Rain Forest",
+    "Hex": "#17806D",
+    "Rgb": "23,128,109"
+  },
+  {
+    "Name": "Pine Green",
+    "Hex": "#158078",
+    "Rgb": "21,128,120"
+  },
+  {
+    "Name": "Robin Egg Blue",
+    "Hex": "#1FCECB",
+    "Rgb": "31,206,203"
+  },
+  {
+    "Name": "Aquamarine",
+    "Hex": "#78DBE2",
+    "Rgb": "120,219,226"
+  },
+  {
+    "Name": "Turquoise Blue",
+    "Hex": "#77DDE7",
+    "Rgb": "119,221,231"
+  },
+  {
+    "Name": "Sky Blue",
+    "Hex": "#80DAEB",
+    "Rgb": "128,218,235"
+  },
+  {
+    "Name": "Outer Space",
+    "Hex": "#414A4C",
+    "Rgb": "65,74,76"
+  },
+  {
+    "Name": "Blue Green",
+    "Hex": "#199EBD",
+    "Rgb": "25,158,189"
+  },
+  {
+    "Name": "Pacific Blue",
+    "Hex": "#1CA9C9",
+    "Rgb": "28,169,201"
+  },
+  {
+    "Name": "Cerulean",
+    "Hex": "#1DACD6",
+    "Rgb": "29,172,214"
+  },
+  {
+    "Name": "Cornflower",
+    "Hex": "#9ACEEB",
+    "Rgb": "154,206,235"
+  },
+  {
+    "Name": "Midnight Blue",
+    "Hex": "#1A4876",
+    "Rgb": "26,72,118"
+  },
+  {
+    "Name": "Navy Blue",
+    "Hex": "#1974D2",
+    "Rgb": "25,116,210"
+  },
+  {
+    "Name": "Denim",
+    "Hex": "#2B6CC4",
+    "Rgb": "43,108,196"
+  },
+  {
+    "Name": "Blue",
+    "Hex": "#1F75FE",
+    "Rgb": "31,117,254"
+  },
+  {
+    "Name": "Periwinkle",
+    "Hex": "#C5D0E6",
+    "Rgb": "197,208,230"
+  },
+  {
+    "Name": "Cadet Blue",
+    "Hex": "#B0B7C6",
+    "Rgb": "176,183,198"
+  },
+  {
+    "Name": "Indigo",
+    "Hex": "#5D76CB",
+    "Rgb": "93,118,203"
+  },
+  {
+    "Name": "Wild Blue Yonder",
+    "Hex": "#A2ADD0",
+    "Rgb": "162,173,208"
+  },
+  {
+    "Name": "Manatee",
+    "Hex": "#979AAA",
+    "Rgb": "151,154,170"
+  },
+  {
+    "Name": "Blue Bell",
+    "Hex": "#ADADD6",
+    "Rgb": "173,173,214"
+  },
+  {
+    "Name": "Blue Violet",
+    "Hex": "#7366BD",
+    "Rgb": "115,102,189"
+  },
+  {
+    "Name": "Purple Heart",
+    "Hex": "#7442C8",
+    "Rgb": "116,66,200"
+  },
+  {
+    "Name": "Royal Purple",
+    "Hex": "#7851A9",
+    "Rgb": "120,81,169"
+  },
+  {
+    "Name": "Purple Mountains’ Majesty",
+    "Hex": "#9D81BA",
+    "Rgb": "157,129,186"
+  },
+  {
+    "Name": "Violet (Purple)",
+    "Hex": "#926EAE",
+    "Rgb": "146,110,174"
+  },
+  {
+    "Name": "Wisteria",
+    "Hex": "#CDA4DE",
+    "Rgb": "205,164,222"
+  },
+  {
+    "Name": "Vivid Violet",
+    "Hex": "#8F509D",
+    "Rgb": "143,80,157"
+  },
+  {
+    "Name": "Fuchsia",
+    "Hex": "#C364C5",
+    "Rgb": "195,100,197"
+  },
+  {
+    "Name": "Shocking Pink",
+    "Hex": "#FB7EFD",
+    "Rgb": "251,126,253"
+  },
+  {
+    "Name": "Pink Flamingo",
+    "Hex": "#FC74FD",
+    "Rgb": "252,116,253"
+  },
+  {
+    "Name": "Plum",
+    "Hex": "#8E4585",
+    "Rgb": "142,69,133"
+  },
+  {
+    "Name": "Hot Magenta",
+    "Hex": "#FF1DCE",
+    "Rgb": "255,29,206"
+  },
+  {
+    "Name": "Purple Pizzazz",
+    "Hex": "#FF1DCE",
+    "Rgb": "255,29,206"
+  },
+  {
+    "Name": "Razzle Dazzle Rose",
+    "Hex": "#FF48D0",
+    "Rgb": "255,72,208"
+  },
+  {
+    "Name": "Orchid",
+    "Hex": "#E6A8D7",
+    "Rgb": "230,168,215"
+  },
+  {
+    "Name": "Red Violet",
+    "Hex": "#C0448F",
+    "Rgb": "192,68,143"
+  },
+  {
+    "Name": "Eggplant",
+    "Hex": "#6E5160",
+    "Rgb": "110,81,96"
+  },
+  {
+    "Name": "Cerise",
+    "Hex": "#DD4492",
+    "Rgb": "221,68,146"
+  },
+  {
+    "Name": "Wild Strawberry",
+    "Hex": "#FF43A4",
+    "Rgb": "255,67,164"
+  },
+  {
+    "Name": "Magenta",
+    "Hex": "#F664AF",
+    "Rgb": "246,100,175"
+  },
+  {
+    "Name": "Lavender",
+    "Hex": "#FCB4D5",
+    "Rgb": "252,180,213"
+  },
+  {
+    "Name": "Cotton Candy",
+    "Hex": "#FFBCD9",
+    "Rgb": "255,188,217"
+  },
+  {
+    "Name": "Violet Red",
+    "Hex": "#F75394",
+    "Rgb": "247,83,148"
+  },
+  {
+    "Name": "Carnation Pink",
+    "Hex": "#FFAACC",
+    "Rgb": "255,170,204"
+  },
+  {
+    "Name": "Razzmatazz",
+    "Hex": "#E3256B",
+    "Rgb": "227,37,107"
+  },
+  {
+    "Name": "Piggy Pink",
+    "Hex": "#FDD7E4",
+    "Rgb": "253,215,228"
+  },
+  {
+    "Name": "Jazzberry Jam",
+    "Hex": "#CA3767",
+    "Rgb": "202,55,103"
+  },
+  {
+    "Name": "Blush",
+    "Hex": "#DE5D83",
+    "Rgb": "222,93,131"
+  },
+  {
+    "Name": "Tickle Me Pink",
+    "Hex": "#FC89AC",
+    "Rgb": "252,137,172"
+  },
+  {
+    "Name": "Pink Sherbet",
+    "Hex": "#F780A1",
+    "Rgb": "247,128,161"
+  },
+  {
+    "Name": "Maroon",
+    "Hex": "#C8385A",
+    "Rgb": "200,56,90"
+  },
+  {
+    "Name": "Red",
+    "Hex": "#EE204D",
+    "Rgb": "238,32,77"
+  },
+  {
+    "Name": "Radical Red",
+    "Hex": "#FF496C",
+    "Rgb": "255,73,108"
+  },
+  {
+    "Name": "Mauvelous",
+    "Hex": "#EF98AA",
+    "Rgb": "239,152,170"
+  },
+  {
+    "Name": "Wild Watermelon",
+    "Hex": "#FC6C85",
+    "Rgb": "252,108,133"
+  },
+  {
+    "Name": "Scarlet",
+    "Hex": "#FC2847",
+    "Rgb": "252,40,71"
+  },
+  {
+    "Name": "Salmon",
+    "Hex": "#FF9BAA",
+    "Rgb": "255,155,170"
+  },
+  {
+    "Name": "Brick Red",
+    "Hex": "#CB4154",
+    "Rgb": "203,65,84"
+  },
+  {
+    "Name": "White",
+    "Hex": "#EDEDED",
+    "Rgb": "237,237,237"
+  },
+  {
+    "Name": "Timberwolf",
+    "Hex": "#DBD7D2",
+    "Rgb": "219,215,210"
+  },
+  {
+    "Name": "Silver",
+    "Hex": "#CDC5C2",
+    "Rgb": "205,197,194"
+  },
+  {
+    "Name": "Gray",
+    "Hex": "#95918C",
+    "Rgb": "149,145,140"
+  }
+]

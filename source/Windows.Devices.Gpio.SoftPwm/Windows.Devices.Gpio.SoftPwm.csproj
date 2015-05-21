@@ -7,8 +7,8 @@
     <ProjectGuid>{2F4773FC-5711-4EE4-A18F-8CC3EBA6040F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Windows.Devices.Gpio.SoftPwm</RootNamespace>
-    <AssemblyName>Windows.Devices.Gpio.SoftPwm</AssemblyName>
+    <RootNamespace>Windows.Devices.Gpio.SoftPwmSharp</RootNamespace>
+    <AssemblyName>Windows.Devices.Gpio.SoftPwmSharp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10069.0</TargetPlatformVersion>
@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="ISoftPwm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PulseWidthChangedEventArgs.cs" />
     <Compile Include="SoftPwm.cs" />
     <Compile Include="SoftPwmExtensions.cs" />
   </ItemGroup>
@@ -131,6 +132,9 @@
     <SDKReference Include="WindowsIoT, Version=10.0.10069.0">
       <Name>Windows IoT Extension SDK</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="COPYING.txt" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

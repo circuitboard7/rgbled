@@ -1,10 +1,33 @@
-﻿using System;
+﻿// Copyright © 2015 Daniel Porrey
+//
+// This file is part of SoftPwmSharp.
+// 
+// SoftPwmSharp is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// SoftPwmSharp is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with SoftPwmSharp.  If not, see http://www.gnu.org/licenses/.
+//
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Devices.Gpio;
 
-namespace Windows.Devices.Gpio.SoftPwm
+namespace Windows.Devices.Gpio.SoftPwmSharp
 {
+	/// <summary>
+	/// Delegate for the PulseWidthChangedEvent.
+	/// </summary>
+	/// <param name="sender">The object where the event handler is attached.</param>
+	/// <param name="e">The event data.</param>
+	public delegate void PulseWidthChangedEventHandler(object sender, PulseWidthChangedEventArgs e);
+
 	/// <summary>
 	/// Provides a software based Pulse Width Modulation capability for any GPIO pin on
 	/// the device. PWM is used in a variety of circuits as a way to control analog 
@@ -12,9 +35,24 @@ namespace Windows.Devices.Gpio.SoftPwm
 	/// </summary>
 	public class SoftPwm : ISoftPwm
 	{
+		/// <summary>
+		/// This event is fired whenever the HighPulseWidth or LowPulseWidth
+		/// values change. NOTE: This property is NOT fired when the PulseWidth
+		/// property changes.
+		/// </summary>
+		public PulseWidthChangedEventHandler PulseWidthChanged = null;
+
+		/// <summary>
+		/// This event is fired for every pulse (after the low pulse). Monitoring of this event
+		/// can impact the performance of this Soft PWM and it's ability to keep accurate timing.
+		/// </summary>
+		public EventHandler PwmPulsed = null;
+
 		private int _counter = 0;
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-		private int _value = 0;
+		private double _value = 0;
+		private double _previousLowPulseWidth = 0d;
+		private double _previousHighPulseWidth = 0d;
 
 		/// <summary>
 		/// Creates an instance of SoftPwm given an instance
@@ -42,55 +80,131 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// <summary>
 		/// Gets the minimum value that can be set.
 		/// </summary>
-		public int MinimumValue { get; } = 0;
+		public double MinimumValue { get; } = 0;
 
 		/// <summary>
 		/// Gets/sets the maximum value allowed.
 		/// </summary>
-		public int MaximumValue { get; set; } = 100;
+		public double MaximumValue { get; set; } = 255;
 
 		/// <summary>
-		/// Gets/set the width of the pulse in μs (micro-seconds).
+		/// Gets/set the frequency of the pulse in Hz.
 		/// </summary>
-		public double PulseWidth { get; set; } = 100d;
+		public double PulseFrequency { get; set; } = 100d;
+
+		/// <summary>
+		/// Gets the total width/length in μs (micro-seconds) of the pulse.
+		/// </summary>
+		public double PulseWidth
+		{
+			get
+			{
+				// ***
+				// *** Check if disposed and throw an exception 
+				// *** if this instance has been disposed.
+				// ***
+				this.CheckDisposed();
+
+				return 1d / this.PulseFrequency * 1000d * 1000d;
+			}
+		}
+
+		/// <summary>
+		/// Gets the width/length in μs (micro-seconds) of the high pulse.
+		/// </summary>
+		public double HighPulseWidth
+		{
+			get
+			{
+				// ***
+				// *** Check if disposed and throw an exception 
+				// *** if this instance has been disposed.
+				// ***
+				this.CheckDisposed();
+
+				return ((double)this.Value / this.MaximumValue) * this.PulseWidth;
+			}
+		}
+
+		/// <summary>
+		/// Gets the width/length in μs (micro-seconds) of the low pulse.
+		/// </summary>
+		public double LowPulseWidth
+		{
+			get
+			{
+				// ***
+				// *** Check if disposed and throw an exception 
+				// *** if this instance has been disposed.
+				// ***
+				this.CheckDisposed();
+
+				return ((double)(this.MaximumValue - this.Value) / this.MaximumValue) * this.PulseWidth;
+			}
+		}
 
 		/// <summary>
 		/// Start the SoftPwm in the GPIO pin.
 		/// </summary>
-		public async void StartAsync()
+		public void StartAsync()
 		{
+			// ***
+			// *** Check if disposed and throw an exception 
+			// *** if this instance has been disposed.
+			// ***
 			this.CheckDisposed();
 
-			while (!_cancellationTokenSource.IsCancellationRequested)
+			Task.Factory.StartNew(async () =>
 			{
-				// ***
-				// *** Pulse High
-				// ***
+				while (!_cancellationTokenSource.IsCancellationRequested)
 				{
-					if (_value != this.MinimumValue)
+					// ***
+					// *** Pulse High (unless the value is 0 in which case
+					// *** the output will stay low.
+					// ***
+					if (this.Value != this.MinimumValue)
 					{
 						this.Pin.Write(GpioPinValue.High);
 					}
 
-					double delayMicroseconds = (double)_value * this.PulseWidth;
-					await this.DelayMicroSeconds(delayMicroseconds);
-				}
+					// ***
+					// *** Delay the for the time specified by HighPulseWidth
+					// ***
+					await this.DelayMicroSeconds(this.HighPulseWidth);
 
-				// ***
-				// *** Pulse Low
-				// ***
-				{
-					int space = this.MaximumValue - _value;
-
-					if (space != this.MinimumValue)
+					// ***
+					// *** Pulse Low unless the value is at maximum in which
+					// *** case the pulse will remain high.
+					// ***
+					if ((this.MaximumValue - this.Value) != this.MinimumValue)
 					{
 						this.Pin.Write(GpioPinValue.Low);
 					}
 
-					double delayMicroseconds = (double)space * this.PulseWidth;
-					await this.DelayMicroSeconds(delayMicroseconds);
+					// ***
+					// *** Delay the for the time specified by LowPulseWidth
+					// ***
+					await this.DelayMicroSeconds(this.LowPulseWidth);
+
+					// ***
+					// *** Check if the PulseWidthChanged event needs to be fired.
+					// ***
+					if (this.LowPulseWidth != _previousLowPulseWidth || this.HighPulseWidth != _previousHighPulseWidth)
+					{
+						_previousLowPulseWidth = this.LowPulseWidth;
+						_previousHighPulseWidth = this.HighPulseWidth;						
+						this.OnPulseWidthChanged(this.HighPulseWidth, this.LowPulseWidth);
+					}
+
+					// ***
+					// *** Fire the Pulsed event (monitoring of this event
+					// *** can impact the performance of the application and 
+					// *** the ability of this code to keep the timing
+					// *** correct.
+					// ***
+					this.OnPwmPulsed();
 				}
-			}
+			});
 		}
 
 		/// <summary>
@@ -99,24 +213,47 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// <returns></returns>
 		public Task StopAsync()
 		{
+			// ***
+			// *** Check if disposed and throw an exception 
+			// *** if this instance has been disposed.
+			// ***
 			this.CheckDisposed();
+
+			// ***
+			// *** Call cancel to stop the loop which will
+			// *** allow it to drop out and stop.
+			// ***
 			_cancellationTokenSource.Cancel();
+
+			// ***
+			// *** Return Task result
+			// ***
 			return Task.FromResult(0);
 		}
 
 		/// <summary>
 		/// Gets/sets the current value.
 		/// </summary>
-		public int Value
+		public double Value
 		{
 			get
 			{
+				// ***
+				// *** Check if disposed and throw an exception 
+				// *** if this instance has been disposed.
+				// ***
 				this.CheckDisposed();
+
 				return _value;
 			}
 			set
 			{
+				// ***
+				// *** Check if disposed and throw an exception 
+				// *** if this instance has been disposed.
+				// ***
 				this.CheckDisposed();
+
 				_value = value;
 				if (_value < this.MinimumValue)
 				{
@@ -135,8 +272,13 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// </summary>
 		public void Dispose()
 		{
+			// ***
+			// *** Check if disposed and throw an exception 
+			// *** if this instance has been disposed.
+			// ***
 			this.CheckDisposed();
-			this.StopAsync();
+
+			this.StopAsync().Wait();
 			this.Pin.Dispose();
 			this.Pin = null;
 		}
@@ -147,7 +289,7 @@ namespace Windows.Devices.Gpio.SoftPwm
 		/// </summary>
 		private void CheckDisposed()
 		{
-			if (this.Pin == null) throw new ObjectDisposedException(nameof(SoftPwm));
+			if (this.Pin == null) { throw new ObjectDisposedException(nameof(SoftPwm)); }
 		}
 
 		/// <summary>
@@ -160,5 +302,27 @@ namespace Windows.Devices.Gpio.SoftPwm
 			double delayInMiliseconds = delayMicroseconds / 1000d;
 			await Task.Delay(TimeSpan.FromMilliseconds(delayInMiliseconds), _cancellationTokenSource.Token);
 		}
-	}
+
+		/// <summary>
+		/// Called to raise the PulseWidthChanged event.
+		/// </summary>
+		protected virtual void OnPulseWidthChanged(double highPulseWidth, double lowPulseWidth)
+		{
+			if (this.PulseWidthChanged != null)
+			{
+				this.PulseWidthChanged(this, new PulseWidthChangedEventArgs(highPulseWidth, lowPulseWidth));
+			}
+		}
+
+		/// <summary>
+		/// Called to raise the PwmPulsed event
+		/// </summary>
+		protected virtual void OnPwmPulsed()
+		{
+			if (this.PwmPulsed != null)
+			{
+				this.PwmPulsed(this, new EventArgs());
+			}
+		}
+    }
 }

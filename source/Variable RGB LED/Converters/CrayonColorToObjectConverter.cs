@@ -15,27 +15,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Variable RGB LED.  If not, see http://www.gnu.org/licenses/.
 //
-namespace System
+using System;
+using Windows.UI.Xaml.Data;
+
+namespace Circuitboard7.RgbLed.Converters
 {
 	/// <summary>
-	/// Generic extension methods.
+	/// This may be a pre-release issue but the Xaml designer is complaining
+	/// that on an x:Bind stating an object cannot be bound to object without
+	/// a converter. This is the converter!
 	/// </summary>
-	public static class Extensions
+	public class CrayonColorToObjectConverter : IValueConverter
 	{
-		/// <summary>
-		/// Converts a value of one type to another.
-		/// </summary>
-		/// <typeparam name="T">The target type that the value will 
-		/// be converted to.</typeparam>
-		/// <param name="item">An instance of an object to be converted.</param>
-		/// <returns>Returns the converted object of type T.</returns>
-		public static T ConvertTo<T>(this object item)
+		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			T returnValue = default(T);
+			return value;
+		}
 
-			returnValue = (T)Convert.ChangeType(item, typeof(T));
-
-			return returnValue;
+		public object ConvertBack(object value, Type targetType, object parameter, string language)
+		{
+			return value;
 		}
 	}
 }
