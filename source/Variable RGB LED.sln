@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Variable RGB LED", "Variabl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Devices.Gpio.FluentApi", "Windows.Devices.Gpio.FluentApi\Windows.Devices.Gpio.FluentApi.csproj", "{56DC9826-25B6-44D9-AA97-6221BC5BBED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Devices.Gpio.SoftPwm", "Windows.Devices.Gpio.SoftPwm\Windows.Devices.Gpio.SoftPwm.csproj", "{2F4773FC-5711-4EE4-A18F-8CC3EBA6040F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Devices.Gpio.SoftPwmSharp", "Windows.Devices.Gpio.SoftPwmSharp\Windows.Devices.Gpio.SoftPwmSharp.csproj", "{2F4773FC-5711-4EE4-A18F-8CC3EBA6040F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

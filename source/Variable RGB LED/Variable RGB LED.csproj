@@ -169,9 +169,9 @@
       <Project>{56dc9826-25b6-44d9-aa97-6221bc5bbed6}</Project>
       <Name>Windows.Devices.Gpio.FluentApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Windows.Devices.Gpio.SoftPwm\Windows.Devices.Gpio.SoftPwm.csproj">
+    <ProjectReference Include="..\Windows.Devices.Gpio.SoftPwmSharp\Windows.Devices.Gpio.SoftPwmSharp.csproj">
       <Project>{2f4773fc-5711-4ee4-a18f-8cc3eba6040f}</Project>
-      <Name>Windows.Devices.Gpio.SoftPwm</Name>
+      <Name>Windows.Devices.Gpio.SoftPwmSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
