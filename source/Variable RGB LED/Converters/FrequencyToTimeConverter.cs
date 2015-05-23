@@ -18,7 +18,7 @@
 using System;
 using Windows.UI.Xaml.Data;
 
-namespace Circuitboard7.RgbLed.Converters
+namespace Porrey.RgbLed.Converters
 {
 	public class FrequencyToTimeConverter : IValueConverter
 	{

@@ -17,7 +17,7 @@
 //
 using System;
 
-namespace Circuitboard7.RgbLed
+namespace Porrey.RgbLed
 {
 	/// <summary>
 	/// Represents a predefine crayon color.

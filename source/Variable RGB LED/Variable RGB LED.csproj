@@ -7,8 +7,8 @@
     <ProjectGuid>{5AE90EA8-2E6B-4E71-9E29-C32DAEC106F3}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Circuitboard7.RgbLed</RootNamespace>
-    <AssemblyName>Circuitboard7.RgbLed</AssemblyName>
+    <RootNamespace>Porrey.RgbLed</RootNamespace>
+    <AssemblyName>Porrey.RgbLed</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10069.0</TargetPlatformVersion>

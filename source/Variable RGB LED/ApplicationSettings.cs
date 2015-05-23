@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Storage;
 
-namespace Circuitboard7.RgbLed
+namespace Porrey.RgbLed
 {
 	/// <summary>
 	/// Provides an interface to get and save application settings.
