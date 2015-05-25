@@ -40,7 +40,7 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 		/// values change. NOTE: This property is NOT fired when the PulseWidth
 		/// property changes.
 		/// </summary>
-		public PulseWidthChangedEventHandler PulseWidthChanged = null;
+		public event PulseWidthChangedEventHandler PulseWidthChanged = null;
 
 		/// <summary>
 		/// This event is fired for every pulse (after the low pulse). Monitoring of this event
