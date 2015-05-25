@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
 	<Identity
-    Name="08c2cca0-cd40-41e7-8a37-26520a2ca769"
+    Name="VariableRgbLed"
     Publisher="CN=Daniel Porrey"
     Version="1.0.0.0" />
 
