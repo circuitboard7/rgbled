@@ -15,12 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with SoftPwmSharp.  If not, see http://www.gnu.org/licenses/.
 //
+using System;
+
 namespace Windows.Devices.Gpio.SoftPwmSharp
 {
 	/// <summary>
 	/// Provides data for the PulseWidthChangedEvent.
 	/// </summary>
-	public class PulseWidthChangedEventArgs
+	public class PulseWidthChangedEventArgs : EventArgs
 	{
 		/// <summary>
 		/// Creates an instance of PulseWidthChangedEventArgs with the provide
