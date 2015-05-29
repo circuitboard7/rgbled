@@ -297,9 +297,9 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 		/// </summary>
 		/// <param name="delayMicroseconds">The number of μs to delay the thread.</param>
 		/// <returns>Returns an awaitable Task instance.</returns>
-		private async Task DelayMicroSeconds(int delayMicroseconds)
+		private async Task DelayMicroSeconds(double delayMicroseconds)
 		{
-			TimeSpan delay = TimeSpan.FromTicks(10 * delayMicroseconds);
+			TimeSpan delay = TimeSpan.FromTicks(10 * (int)delayMicroseconds);
 			await Task.Delay(delay);
 		}
 
