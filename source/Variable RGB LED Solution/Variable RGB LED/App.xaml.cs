@@ -26,12 +26,8 @@ namespace Porrey.RgbLed
 {
 	sealed partial class App : Application
 	{
-		public static Microsoft.ApplicationInsights.TelemetryClient TelemetryClient;
-
 		public App()
         {
-			TelemetryClient = new Microsoft.ApplicationInsights.TelemetryClient();
-
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
