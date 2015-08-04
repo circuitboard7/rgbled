@@ -48,7 +48,6 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 		/// </summary>
 		public EventHandler PwmPulsed = null;
 
-		private int _counter = 0;
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 		private double _value = 0;
 		private double _previousLowPulseWidth = 0d;

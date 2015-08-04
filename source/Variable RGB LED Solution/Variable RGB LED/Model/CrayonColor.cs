@@ -85,20 +85,11 @@ namespace Porrey.RgbLed
 		/// <summary>
 		/// Gets a string representation of this instance suitable for display.
 		/// </summary>
-		public string NameDisplay
-		{
-			get
-			{
-				return string.Format("{0} ({1})", this.Name, this.Hex);
-			}
-		}
+		public string NameDisplay => string.Format("{0} ({1})", this.Name, this.Hex);
 
 		/// <summary>
 		/// Gets the default string shown for this instance.
 		/// </summary>
-		public override string ToString()
-		{
-			return this.NameDisplay;
-		}
+		public override string ToString() => this.NameDisplay;
 	}
 }
