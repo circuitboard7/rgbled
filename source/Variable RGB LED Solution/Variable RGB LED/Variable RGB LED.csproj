@@ -112,7 +112,6 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="project.json" />
-    <None Include="Variable RGB LED_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\background.png" />
