@@ -114,7 +114,7 @@
 								   VerticalAlignment="Center" />
 
 						<!-- Low Pulse Label -->
-						<TextBlock Text="{x:Bind RedLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+                        <TextBlock Text="{x:Bind RedLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='Low = [0:#,##0.0] μs', Mode=OneWay}"
 								   Style="{ThemeResource BodyTextBlockStyle}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
@@ -249,7 +249,7 @@
 								   VerticalAlignment="Center" />
 
 						<!-- Low Pulse Label -->
-						<TextBlock Text="{x:Bind GreenLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+						<TextBlock Text="{x:Bind GreenLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='Low = [0:#,##0.0] μs', Mode=OneWay}"
 								   Style="{ThemeResource BodyTextBlockStyle}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
@@ -384,7 +384,7 @@
 								   VerticalAlignment="Center" />
 
 						<!-- Low Pulse Label -->
-						<TextBlock Text="{x:Bind BlueLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='High = [0:#,##0.0] μs', Mode=OneWay}"
+                        <TextBlock Text="{x:Bind BlueLowPulseWidth, Converter={StaticResource ValueFormatConverter}, ConverterParameter='Low = [0:#,##0.0] μs', Mode=OneWay}"
 								   Style="{ThemeResource BodyTextBlockStyle}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
