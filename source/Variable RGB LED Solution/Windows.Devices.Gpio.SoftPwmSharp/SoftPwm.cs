@@ -50,7 +50,6 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private Task _pulserTask;
-
         private double _value = 0;
 		private double _previousLowPulseWidth = 0d;
 		private double _previousHighPulseWidth = 0d;
@@ -226,8 +225,10 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 			// ***
 			_cancellationTokenSource.Cancel();
 
-            // Wait for task to complete
-            await _pulserTask;
+			// ***
+			// *** Wait for task to complete.
+			// ***
+			await _pulserTask;
         }
 
         /// <summary>
