@@ -49,7 +49,9 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 		public EventHandler PwmPulsed = null;
 
 		private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-		private double _value = 0;
+        private Task _pulserTask;
+
+        private double _value = 0;
 		private double _previousLowPulseWidth = 0d;
 		private double _previousHighPulseWidth = 0d;
 
@@ -153,7 +155,7 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 			// ***
 			this.CheckDisposed();
 
-			Task.Factory.StartNew(async () =>
+            _pulserTask = Task.Factory.StartNew(async () =>
 			{
 				while (!_cancellationTokenSource.IsCancellationRequested)
 				{
@@ -210,7 +212,7 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 		/// Stop the SoftPwm on the GPIO pin.
 		/// </summary>
 		/// <returns></returns>
-		public Task StopAsync()
+		public async Task StopAsync()
 		{
 			// ***
 			// *** Check if disposed and throw an exception 
@@ -224,16 +226,14 @@ namespace Windows.Devices.Gpio.SoftPwmSharp
 			// ***
 			_cancellationTokenSource.Cancel();
 
-			// ***
-			// *** Return Task result
-			// ***
-			return Task.FromResult(0);
-		}
+            // Wait for task to complete
+            await _pulserTask;
+        }
 
-		/// <summary>
-		/// Gets/sets the current value.
-		/// </summary>
-		public double Value
+        /// <summary>
+        /// Gets/sets the current value.
+        /// </summary>
+        public double Value
 		{
 			get
 			{
